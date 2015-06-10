@@ -10,6 +10,15 @@ if($this->session->flashdata('login_success')!='')
 	<?=$this->session->flashdata('login_success')?></div>
 <?php
 }
+
+if($this->session->flashdata('login_fail')!='')
+{
+	?>
+	<div class="alert alert-warning" role="alert">
+	<?=$this->session->flashdata('login_fail')?></div>
+<?php
+}
+
 ?>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">

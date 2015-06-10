@@ -59,16 +59,21 @@ class Login extends CI_Controller {
 				'user_password'=>md5($this->input->post('password'))
 				);
 
-			$this->auth->authenticate($data);
-
-				//check if email and password is exist
-
-			if($data['email']=='admin@admin.com' AND $data['password']==md5('admin')){
+			if($this->auth->authenticate($data))
+			{
+				//login is success
 
 				$this->session->set_flashdata('login_success', 'You are logged in');
 				redirect('login/index');
 			}
+			else
+			{
+				//login is fail
+				$this->session->set_flashdata('login_fail', 'Sorry, Login is failed');
+				redirect('login/index');
+			}
 
+			
 		}
 
 	}

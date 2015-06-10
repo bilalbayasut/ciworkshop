@@ -28,8 +28,9 @@ class Login_model extends CI_Model {
 
         $query = $this->db->get();
 
-        print_r($this->db->queries); die();
-
+        //TO PRINT QUERY SYNTAX FOR DEBUGGING
+        //print_r($this->db->queries); die();
+         
         return $query->result();
 
     }

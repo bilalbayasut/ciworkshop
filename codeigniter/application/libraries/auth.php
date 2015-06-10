@@ -12,11 +12,30 @@ class Auth {
 
 	public function authenticate($data=array())
 	{
-	
+
 		$tablename="user";
 		$result=array();
 
 		$result=$this->CI->login_model->get($data,$tablename);
-		print_r($result); die();
+		
+		/*
+		print_r($result);
+		echo "<br/>";
+		echo "size of array is ";
+		print_r(sizeof($result));
+		die();
+		*/
+
+		if(sizeof($result)>0)
+		{
+			//user exist
+			return true;
+		}
+		else
+		{
+			//user not exist
+			return false;
+		}
+		
 	}
 }
