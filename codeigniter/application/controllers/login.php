@@ -64,7 +64,7 @@ class Login extends CI_Controller {
 				//login is success
 
 				$this->session->set_flashdata('login_success', 'You are logged in');
-				redirect('login/index');
+				redirect('backend/dashboard');
 			}
 			else
 			{
@@ -78,8 +78,5 @@ class Login extends CI_Controller {
 
 	}
 
-	public function test(){
-
-	}
 
 }

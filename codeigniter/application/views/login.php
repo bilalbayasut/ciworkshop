@@ -3,14 +3,6 @@
 	<div class="container">
 <?php
 
-if($this->session->flashdata('login_success')!='')
-{
-	?>
-	<div class="alert alert-success" role="alert">
-	<?=$this->session->flashdata('login_success')?></div>
-<?php
-}
-
 if($this->session->flashdata('login_fail')!='')
 {
 	?>
