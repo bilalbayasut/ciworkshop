@@ -3,12 +3,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
+	private $data=array();
+
+	public function __construct()
+	{
+		parent::__construct();
+            // Your own constructor code
+		$this->data['header']=$this->load->view('template/header','',TRUE);
+		$this->data['footer']=$this->load->view('template/footer','',TRUE);
+		
+	}
+
 	public function index()
 	{
-		$this->load->view('login');
+		//$this->data['variable']=$variableDariDatabase;
+
+
+		$this->load->view('login',$this->data);
 	}
 
 	public function doLogin(){
+
 
 		$this->load->library('form_validation');
 
@@ -30,23 +45,29 @@ class Login extends CI_Controller {
 		if ($this->form_validation->run() != TRUE)
 		{
 			//if validation fails
-			$this->load->view('login');
+			$this->load->view('login',$this->data);
 		}
 		else
 		{
+
+			//load auth library
+			$this->load->library('auth');
+
 			// if validation success
-				$data=array(
-			'email'=>$this->input->post('email'),
-			'password'=>md5($this->input->post('password'))
-			);
+			$data=array(
+				'user_email'=>$this->input->post('email'),
+				'user_password'=>md5($this->input->post('password'))
+				);
+
+			$this->auth->authenticate($data);
 
 				//check if email and password is exist
 
-				if($data['email']=='admin@admin.com' AND $data['password']==md5('admin')){
+			if($data['email']=='admin@admin.com' AND $data['password']==md5('admin')){
 
-					$this->session->set_flashdata('login_success', 'You are logged in');
-					redirect('login/index');
-				}
+				$this->session->set_flashdata('login_success', 'You are logged in');
+				redirect('login/index');
+			}
 
 		}
 
