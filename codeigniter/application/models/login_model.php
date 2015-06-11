@@ -30,8 +30,32 @@ class Login_model extends CI_Model {
 
         //TO PRINT QUERY SYNTAX FOR DEBUGGING
         //print_r($this->db->queries); die();
-         
+
         return $query->result();
 
     }
+
+
+    public function delete($data=array(),$tablename=""){
+
+        foreach($data as $key=>$value)
+        {   
+
+            $this->db->where($key, $value);
+        }
+        
+        if($this->db->delete($tablename))
+            return true;
+        else
+            return false;
+    }
+
+//sama dengan atas
+    public function deleteUser($user_id){
+        $this->db->where('user_id', $user_id);
+          if($this->db->delete('user'))
+            return true;
+        else
+            return false;
+}
 }

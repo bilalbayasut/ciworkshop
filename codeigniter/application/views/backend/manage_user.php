@@ -1,46 +1,61 @@
-<h1 class="page-header"><?=$title?></h1>
-       
-          <div class="table-responsive">
-            <table id="example" class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
+  <?php
 
-              </tbody>
-            </table>
-          </div>
+  if($this->session->flashdata('operation_success')!='')
+  {
+    ?>
+    <div class="alert alert-success" role="alert">
+      <?=$this->session->flashdata('operation_success')?></div>
+      <?php
+    }
+
+    if($this->session->flashdata('operation_fail')!='')
+    {
+      ?>
+      <div class="alert alert-danger" role="alert">
+        <?=$this->session->flashdata('operation_fail')?></div>
+        <?php
+      }
+      ?>
+      <h1 class="page-header"><?=$title?></h1>
+
+      <div class="table-responsive">
+        <table id="example" class="table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>email</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+                  if(isset($users)){  //check whether users variable exist
+                    foreach($users as $key=>$value)
+                    {
+                      ?> 
+                      <tr>
+                        <td><?=$value->user_id?></td>
+                        <td><?=$value->user_email?></td>
+                        <td><?=$value->user_firstname?></td>
+                        <td><?=$value->user_lastname?></td>
+                        <td>
+                          <div class="col-sm-1">
+                            <a>Edit</a>
+                          </div>
+                          <div class="col-sm-1">
+                            <a href="<?=base_url('backend/dashboard/deleteUser/'.$value->user_id)?>">
+                            Delete</a>
+                          </div>
+
+
+                        </td>
+                      </tr>
+                      <?php
+                    }
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
