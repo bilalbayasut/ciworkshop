@@ -38,4 +38,13 @@ class Auth {
 		}
 		
 	}
+
+	public function is_logged_in(){
+		$user_info=array();
+		$user_info=$this->CI->session->all_userdata();
+		if($user_info['user_email'])
+			return true;
+		else
+			return false;
+	}
 }

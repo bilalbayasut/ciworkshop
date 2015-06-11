@@ -22,8 +22,10 @@
 
 <body>
 
-
-
+<?php
+$user_info=array();
+$user_info=$this->session->all_userdata();
+?>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -37,8 +39,9 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#">Log out</a></li>
+          <li><a href="#">
+          Selamat Datang, <?=$user_info['user_firstname']?>&nbsp;<?=$user_info['user_lastname']?></a></li>
+          <li><a href="<?=base_url('login/doLogout')?>">Log out</a></li>
         </ul>
 
       </div>

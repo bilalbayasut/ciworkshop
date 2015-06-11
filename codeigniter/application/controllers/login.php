@@ -11,6 +11,7 @@ class Login extends CI_Controller {
             // Your own constructor code
 		$this->data['header']=$this->load->view('template/header','',TRUE);
 		$this->data['footer']=$this->load->view('template/footer','',TRUE);
+		$this->load->model('login_model');
 		
 	}
 
@@ -62,6 +63,20 @@ class Login extends CI_Controller {
 			if($this->auth->authenticate($data))
 			{
 				//login is success
+				
+				//fetch the user data
+				$result=array();
+				$result=$this->login_model->get($data,'user');
+			
+				//create session for the logged in user
+				$session_user = array(
+					'user_id'  => $result[0]->user_id,
+					'user_email'     => $result[0]->user_email,
+					'user_firstname' => $result[0]->user_firstname,
+					'user_lastname' =>$result[0]->user_lastname
+					);
+
+				$this->session->set_userdata($session_user);
 
 				$this->session->set_flashdata('login_success', 'You are logged in');
 				redirect('backend/dashboard');
@@ -78,5 +93,9 @@ class Login extends CI_Controller {
 
 	}
 
+	public function doLogout(){
+		$this->session->sess_destroy();
+		redirect('login');
+	}
 
 }
