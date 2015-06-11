@@ -42,7 +42,8 @@
                         <td><?=$value->user_lastname?></td>
                         <td>
                           <div class="col-sm-1">
-                            <a>Edit</a>
+                              <a href="<?=base_url('backend/dashboard/editUserForm/'.$value->user_id)?>">
+                            Edit</a>
                           </div>
                           <div class="col-sm-1">
                             <a href="<?=base_url('backend/dashboard/deleteUser/'.$value->user_id)?>">
