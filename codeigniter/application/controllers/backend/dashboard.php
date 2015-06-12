@@ -84,7 +84,7 @@ class Dashboard extends MY_Controller {
 
 		$user_id=$this->input->post('user_id');
 		$this->load->model('login_model');
-		
+
 		if($this->login_model->updateUser($data,$user_id))
 		{
 			$this->session->set_flashdata('operation_success', 'Operation is success');
@@ -96,6 +96,41 @@ class Dashboard extends MY_Controller {
 			$this->session->set_flashdata('operation_fail', 'Operation is failed');
 			redirect('backend/dashboard/manage_user');
 		}
+	}
+
+	public function createForm(){
+
+		$data['title']="Add User";
+
+		$this->data['content']=$this->load->view('backend/add_user',$data,TRUE);
+		$this->load->view('backend/dashboard',$this->data);
+
+	}
+
+	public function addUser(){
+		$data=array(
+			'user_email'=>$this->input->post('user_email'),
+			'user_password'=>md5($this->input->post('user_password')),
+			'user_firstname'=>$this->input->post('user_firstname'),
+			'user_lastname'=>$this->input->post('user_lastname')
+			);
+		$this->load->model('login_model');
+
+		$user_id=$this->login_model->insert($data,'user');
+
+		if($user_id!=false)
+		{
+			//if user_id is exist, then it means the new user is already added
+			$this->session->set_flashdata('operation_success', 'Operation is success');
+			redirect('backend/dashboard/manage_user');
+
+		}else{
+			$this->session->set_flashdata('operation_fail', 'Operation is failed');
+			redirect('backend/dashboard/manage_user');
+
+		}
+
+
 	}
 
 }

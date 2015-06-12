@@ -84,13 +84,25 @@ return $query->result();
 
 } 
 
-public function updateUser($data,$user_id)
-{
+    public function updateUser($data,$user_id)
+    {
 
-    $this->db->where('user_id', $user_id);
-    if($this->db->update('user', $data))
-        return true;
-    else
-        return false;
-}
+        $this->db->where('user_id', $user_id);
+        if($this->db->update('user', $data))
+            return true;
+        else
+            return false;
+    }
+
+    public function insert($data=array(),$tablename){
+
+        $this->db->insert($tablename, $data); 
+
+        //insert_id function is to return the primary key's generated id when new data is inserted
+        $insert_id = $this->db->insert_id();
+        if(!empty($insert_id))
+            return $insert_id;
+        else
+            return false;
+    }
 }
